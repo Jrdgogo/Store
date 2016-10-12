@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns="http://www.example.org/XMLSchemaSql" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://www.example.org/XMLSchemaSql /WEB-INF/classes/cn/hncu/container/xmlSchema/XMLSchemaSql.xsd">
+  <mapper class="cn.hncu.store.domain.mapping.UserMapping">
+    <resultMap type="User" id="detailUser">
+       <id property="id" column="uid" javaType="String" jdbcType="VARCHAR"/>
+       <result property="name" column="uname" javaType="String" jdbcType="VARCHAR"/>
+       <result property="realName" column="urealName" javaType="String" jdbcType="VARCHAR"/>
+       <result property="phone" column="uphone" javaType="String" jdbcType="VARCHAR"/>
+       <result property="email" column="uemail" javaType="String" jdbcType="VARCHAR"/>
+       <result property="sex" column="usex" javaType="String" jdbcType="ENUM"/>
+       <result property="birth" column="ubirth" javaType="String" jdbcType="VARCHAR"/>
+       <result property="address" column="uaddress" javaType="String" jdbcType="VARCHAR"/>
+       <result property="createTime" column="ucreateTime" javaType="String" jdbcType="VARCHAR"/>
+       <result property="lastLoginIP" column="ulastLoginIP" javaType="String" jdbcType="VARCHAR"/>
+       <result property="lastLoginTime" column="ulastLoginTime" javaType="String" jdbcType="VARCHAR"/>
+       <result property="descr" column="udescr" javaType="String" jdbcType="VARCHAR"/>
+       <collection property="photo" javaType="byte">
+	       <id column="uphoto" jdbcType="BLOB"/>
+       </collection>
+       <collection property="addresses" javaType="Address">
+	       <id property="id" column="aid" javaType="String" jdbcType="VARCHAR"/>
+	       <result property="zipCode" column="azipCode" javaType="String" jdbcType="VARCHAR"/>
+	       <result property="address" column="aaddress" javaType="String" jdbcType="VARCHAR"/>
+       </collection>
+       <collection property="roles" javaType="Role">
+	       <id property="id" column="rid" javaType="String" jdbcType="VARCHAR"/>
+	       <result property="parentId" column="rparentId" javaType="String" jdbcType="VARCHAR"/>
+	       <result property="name" column="rname" javaType="String" jdbcType="VARCHAR"/>
+	       <result property="createTime" column="rcreateTime" javaType="String" jdbcType="VARCHAR"/>
+	       <result property="descr" column="rdescr" javaType="String" jdbcType="VARCHAR"/>
+       </collection>
+       <collection property="orders" javaType="Order">
+	       <id property="id" column="oid" javaType="String" jdbcType="VARCHAR"/>
+	       <result property="consignee" column="oconsignee" javaType="String" jdbcType="VARCHAR"/>
+	       <result property="paytype" column="opaytype" javaType="char" jdbcType="CHAR"/>
+	       <result property="amount" column="oamount" javaType="double" jdbcType="NUMERIC"/>
+	       <result property="state" column="ostate" javaType="char" jdbcType="CHAR"/>
+	       <result property="orderdate" column="oorderdate" javaType="String" jdbcType="VARCHAR"/>
+       </collection>
+    </resultMap>
+    <sql id="userfield">user.id AS uid,user.name AS uname,user.realName AS urealName,user.phone AS uphone,user.email AS uemail,
+                        user.sex AS usex,user.birth AS ubirth,user.address AS uaddress,user.photo AS uphoto,user.createTime AS ucreateTime,
+                        user.lastLoginIP AS ulastLoginIP,user.lastLoginTime AS ulastLoginTime,user.descr AS udescr</sql> 
+    <sql id="addressfield">address.id AS aid,address.zipCode AS azipCode,address.address AS aaddress</sql>                    
+    <sql id="rolefield">role.id AS rid,role.parentId AS rparentId,role.name AS rname,role.createTime AS rcreateTime,role.descr AS rdescr</sql>                    
+    <sql id="orderfield">ord.id AS oid,ord.consignee AS oconsignee,ord.paytype AS opaytype,ord.amount AS oamount,ord.state AS ostate,ord.orderdate AS oorderdate</sql>                    
+    <select id="getAllUser" resultMap="detailUser">
+        SELECT <include ref="userfield"></include>,
+               <include ref="rolefield"></include>,
+               <include ref="orderfield"></include>,
+               <include ref="addressfield"></include>
+               FROM users user LEFT JOIN userole ur ON user.id=ur.user
+                               LEFT JOIN roles role ON ur.role=role.id
+                               LEFT JOIN orders ord ON user.id=ord.user
+                               LEFT JOIN addresses address ON user.id=address.user
+    </select>
+    <select id="getSingleUser" sql="sql" resultType="User">
+        SELECT * FROM users ${sql}
+    </select>
+    <insert id="register" sql="sql" resultType="boolean">
+        INSERT INTO users(id,name,password,phone,email) ${sql}
+    </insert>
+  </mapper>
+</mapping>

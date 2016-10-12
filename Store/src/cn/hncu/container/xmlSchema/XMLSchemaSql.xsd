@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+ targetNamespace="http://www.example.org/XMLSchemaSql" 
+ xmlns:tns="http://www.example.org/XMLSchemaSql" 
+ elementFormDefault="qualified">
+ <attributeGroup name="result">
+    <attribute name="resultMap" type="IDREF"></attribute>
+    <attribute name="resultType" type="string"></attribute>
+ </attributeGroup>
+ <complexType name="stm" mixed="true">
+     <sequence>
+       <element name="include" maxOccurs="unbounded" minOccurs="0">
+            <complexType>
+                 <attribute name="ref" type="IDREF" use="required"></attribute>
+            </complexType>
+       </element>
+     </sequence>
+     <attribute name="id" type="ID" use="required"></attribute>
+     <attributeGroup ref="tns:result"></attributeGroup>
+     <attribute name="sql" type="string"></attribute>
+     <attribute name="parameterType" type="string"></attribute>  
+ </complexType>
+ <simpleType name="javaType">
+     <restriction base="token">
+        <enumeration value="String"></enumeration>
+        <enumeration value="Character"></enumeration>
+        <enumeration value="Double"></enumeration>
+        <enumeration value="Float"></enumeration>
+        <enumeration value="Long"></enumeration>
+        <enumeration value="Integer"></enumeration>
+        <enumeration value="Short"></enumeration>
+        <enumeration value="Byte"></enumeration>
+        <enumeration value="Boolean"></enumeration>
+        <enumeration value="char"></enumeration>
+        <enumeration value="double"></enumeration>
+        <enumeration value="float"></enumeration>
+        <enumeration value="long"></enumeration>
+        <enumeration value="int"></enumeration>
+        <enumeration value="short"></enumeration>
+        <enumeration value="byte"></enumeration>
+        <enumeration value="boolean"></enumeration>
+     </restriction>
+ </simpleType>
+ <simpleType name="jdbcType">
+     <restriction base="token">
+        <enumeration value="BIGINT"></enumeration>
+        <enumeration value="BINARY"></enumeration>
+        <enumeration value="BIT"></enumeration>
+        <enumeration value="BLOB"></enumeration>
+        <enumeration value="BOOL"></enumeration>
+        <enumeration value="BOOLEAN"></enumeration>
+        <enumeration value="CHAR"></enumeration>
+        <enumeration value="DATE"></enumeration>
+        <enumeration value="DATETIME"></enumeration>
+        <enumeration value="DECIMAL"></enumeration>
+        <enumeration value="DOUBLE"></enumeration>
+        <enumeration value="ENUM"></enumeration>
+        <enumeration value="FLOAT"></enumeration>
+        <enumeration value="INT"></enumeration>
+        <enumeration value="LONGBLOB"></enumeration>
+        <enumeration value="LONGTEXT"></enumeration>
+        <enumeration value="MEDIUMBLOB"></enumeration>
+        <enumeration value="MEDIUMINT"></enumeration>
+        <enumeration value="MEDIUMTEXT"></enumeration>
+        <enumeration value="NUMERIC"></enumeration>
+        <enumeration value="REAL"></enumeration>
+        <enumeration value="SET"></enumeration>
+        <enumeration value="SMALLINT"></enumeration>
+        <enumeration value="TEXT"></enumeration>
+        <enumeration value="TIME"></enumeration>
+        <enumeration value="TIMESTAMP"></enumeration>
+        <enumeration value="TINYBLOB"></enumeration>
+        <enumeration value="TINYINT"></enumeration>
+        <enumeration value="TINYTEXT"></enumeration>
+        <enumeration value="VARBINARY"></enumeration>
+        <enumeration value="VARCHAR"></enumeration>
+        <enumeration value="YEAR"></enumeration>
+     </restriction>
+ </simpleType>
+ <complexType name="attribute">
+     <attribute name="property" type="string"></attribute>
+     <attribute name="column" type="string"></attribute>
+     <attribute name="javaType" type="tns:javaType"></attribute>
+     <attribute name="jdbcType" type="tns:jdbcType"></attribute>
+ </complexType>
+ <complexType name="resultType">
+      <sequence>
+           <element name="id" minOccurs="0" maxOccurs="1" type="tns:attribute"></element>
+           <element name="result" minOccurs="0" maxOccurs="unbounded" type="tns:attribute"></element>
+           <element name="association" minOccurs="0" maxOccurs="unbounded" type="tns:resultType"></element>
+           <element name="collection" minOccurs="0" maxOccurs="unbounded" type="tns:resultType"></element>
+      </sequence>
+      <attribute name="property" type="string"></attribute>
+      <attribute name="javaType" type="string"></attribute>
+ </complexType>
+ <complexType name="mapping">
+       <sequence>
+           <element name="resultMap" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                   <sequence>
+                      <element name="id" minOccurs="0" maxOccurs="1" type="tns:attribute"></element>
+                      <element name="result" minOccurs="0" maxOccurs="unbounded" type="tns:attribute"></element>
+                      <element name="association" minOccurs="0" maxOccurs="unbounded" type="tns:resultType"></element>
+                      <element name="collection" minOccurs="0" maxOccurs="unbounded" type="tns:resultType"></element>
+                   </sequence>
+                   <attribute name="id" type="ID"></attribute>
+                   <attribute name="type" type="string" use="required"></attribute>
+                </complexType>
+           </element>
+           <element name="sql" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                   <simpleContent>
+                        <extension base="string">
+                            <attribute name="id" type="ID" use="required"></attribute>
+                        </extension>
+                   </simpleContent>
+                </complexType>
+           </element>
+           <element name="select" minOccurs="0" maxOccurs="unbounded" type="tns:stm"></element>
+           <element name="insert" minOccurs="0" maxOccurs="unbounded" type="tns:stm"></element>
+           <element name="update" minOccurs="0" maxOccurs="unbounded" type="tns:stm"></element>
+           <element name="delete" minOccurs="0" maxOccurs="unbounded" type="tns:stm"></element>
+       </sequence>
+       <attribute name="class" type="string" use="required"></attribute>
+ </complexType>
+ <element name="mapping">
+    <complexType>
+       <sequence>
+            <element name="mapper" minOccurs="0" maxOccurs="unbounded" type="tns:mapping">
+            </element>
+       </sequence>
+    </complexType>
+ </element>
+</schema>

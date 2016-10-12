@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.example.org/XMLSchema" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xsi:schemaLocation="http://www.example.org/XMLSchema /WEB-INF/classes/cn/hncu/container/xmlSchema/XMLSchema.xsd">
+       <ergodic-inpouring base-package="cn.hncu.store">
+           <exclude-filter type="annotation" expression="cn.hncu.container.annotation.Servlet"/>
+       </ergodic-inpouring>
+       
+</beans>

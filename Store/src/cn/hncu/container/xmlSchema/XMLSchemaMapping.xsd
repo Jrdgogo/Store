@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+        targetNamespace="http://www.example.org/XMLSchemaMapping" 
+        xmlns:tns="http://www.example.org/XMLSchemaMapping" 
+        elementFormDefault="qualified">
+<element name="configuration">
+  <complexType>
+     <sequence>
+        <element name="typeAliases">
+           <complexType>
+              <sequence>
+                <element name="typeAlias" minOccurs="0" maxOccurs="unbounded">
+                   <complexType>
+                       <attribute name="class" type="string"></attribute>
+                       <attribute name="alias" type="string"></attribute>
+                   </complexType>
+                </element>
+              </sequence>
+           </complexType>
+        </element>
+        <element name="mapping">
+           <complexType>
+              <sequence>
+                <element name="mapper" minOccurs="0" maxOccurs="unbounded">
+                   <complexType>
+                       <attribute name="url" type="string"></attribute>
+                   </complexType>
+                </element>
+              </sequence>
+           </complexType>
+        </element>
+     </sequence>
+  </complexType>
+</element>
+</schema>

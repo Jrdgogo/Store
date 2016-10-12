@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://www.example.org/XMLSchemaMapping" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://www.example.org/XMLSchemaMapping /WEB-INF/classes/cn/hncu/container/xmlSchema/XMLSchemaMapping.xsd">
+	<typeAliases>
+		<typeAlias class="cn.hncu.store.domain.User" alias="User"/>
+		<typeAlias class="cn.hncu.store.domain.Address" alias="Address"/>
+		<typeAlias class="cn.hncu.store.domain.Role" alias="Role"/>
+		<typeAlias class="cn.hncu.store.domain.Order" alias="Order"/>
+	</typeAliases>
+	<mapping>
+		<mapper url="cn/hncu/store/domain/xml/User.xml" />
+	</mapping>
+</configuration>

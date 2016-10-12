@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.example.org/XMLSchema" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xsi:schemaLocation="http://www.example.org/XMLSchema /WEB-INF/classes/cn/hncu/container/xmlSchema/XMLSchema.xsd">
+       <propertyFileLoader url="jdbcMySql.properties"/>
+       <bean id="dataSource" class="cn.hncu.container.jdbc.DriverDataSource">
+		  <property name="driver" value="${driver}"></property>
+		  <property name="url" value="${url}"></property>
+		  <property name="password" value="${password}"></property>
+		  <property name="username" value="${user}"></property>
+	   </bean>
+	   <bean id="transactionManager" class="cn.hncu.container.jdbc.DataSourceTransactionManager">
+          <property name="dataSource" ref="dataSource"></property>
+       </bean>
+       <bean class="cn.hncu.container.mapping.ResponseMapping" >
+		   <property name="viewMapping" value="servletMVC.properties"></property>
+		   <property name="defaultView" value="servletMVC"></property>
+	  </bean>
+       <ergodic-inpouring base-package="cn.hncu.store">
+           <include-filter type="annotation" expression="cn.hncu.container.annotation.Servlet"/>
+       </ergodic-inpouring>
+</beans>

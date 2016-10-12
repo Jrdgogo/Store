@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+        targetNamespace="http://www.example.org/XMLSchema" 
+        xmlns:tns="http://www.example.org/XMLSchema" 
+        elementFormDefault="qualified">
+        <element name="beans" >
+           <complexType>
+              <sequence>
+                 <element name="propertyFileLoader" minOccurs="0" maxOccurs="unbounded">
+                   <complexType>
+                     <attribute name="url" type="string" use="required"></attribute>
+                   </complexType>
+                 </element>
+                 <element name="bean" minOccurs="0" maxOccurs="unbounded">
+                    <complexType>
+                       <sequence>
+                          <element name="constructor-arg" minOccurs="0" maxOccurs="unbounded">
+                            <complexType>
+                              <attribute name="name" type="string"/>
+                              <attribute name="ref" type="IDREF"/>
+                              <attribute name="value" type="string"/>
+                            </complexType>
+                          </element>
+                          <element name="property" minOccurs="0" maxOccurs="unbounded">
+                            <complexType>
+                              <attribute name="name" type="string"/>
+                              <attribute name="ref" type="IDREF"/>
+                              <attribute name="value" type="string"/>
+                            </complexType>
+                          </element>
+                       </sequence>
+                       <attribute name="id" type="ID"/>
+                       <attribute name="class" type="string" use="required"/>
+                    </complexType>
+                 </element>
+                 <element name="ergodic-inpouring" maxOccurs="unbounded" minOccurs="0">
+                   <complexType>
+                      <choice>
+                        <element name="exclude-filter" maxOccurs="unbounded" minOccurs="0">
+                           <complexType>
+                             <attribute name="type" use="required">
+                                <simpleType>
+                                   <restriction base="token">
+	  	                                <enumeration value="annotation"></enumeration>
+	  	                                <enumeration value="regex"></enumeration>
+	  	                           </restriction> 
+                                </simpleType>
+                             </attribute>
+                             <attribute name="expression" type="string" use="required"></attribute>
+                           </complexType>
+                        </element>
+                        <element name="include-filter" maxOccurs="unbounded" minOccurs="0">
+                           <complexType>
+                             <attribute name="type" use="required">
+                                <simpleType>
+                                   <restriction base="token">
+	  	                                <enumeration value="annotation"></enumeration>
+	  	                                <enumeration value="regex"></enumeration>
+	  	                           </restriction> 
+                                </simpleType>
+                             </attribute>
+                             <attribute name="expression" type="string" use="required"></attribute>
+                           </complexType>
+                        </element>
+                      </choice>
+                      <attribute name="base-package" type="string" use="required"></attribute>
+                   </complexType>
+                 </element>
+              </sequence>
+           </complexType>
+        </element>
+</schema>
