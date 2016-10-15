@@ -62,5 +62,11 @@
     <insert id="register" sql="sql" resultType="boolean">
         INSERT INTO users(id,name,password,phone,email) ${sql}
     </insert>
+    <update id="update" sql="sql" resultType="boolean">
+        DELETE FROM users ${sql}
+    </update>
+    <delete id="del" sql="sql" resultType="boolean">
+        UPDATE users ${sql}
+    </delete>
   </mapper>
 </mapping>

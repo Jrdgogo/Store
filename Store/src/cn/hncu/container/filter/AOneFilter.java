@@ -43,9 +43,10 @@ public class AOneFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		System.out.println(((HttpServletRequest)request).getHeader("Referer"));
-		if(charset!=null)
+		if(charset!=null){
            request.setCharacterEncoding(charset);
+           response.setContentType("text/html;charset=utf-8");
+		}
         if(getParam)
         	request=new StrengthenRequest((HttpServletRequest)request);
         if(gzip){

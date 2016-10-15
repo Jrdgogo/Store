@@ -30,9 +30,9 @@ public class LoginServlet{
 			String url=request.getHeader("Referer");
 			String path=request.getContextPath();
 			url=url.substring(url.indexOf(path)+path.length());
-			//return url;//转发到的界面是servlet的地址？？？？？？？？？？
 			return "redirect:"+url;//重定向是jsp的地址
 		}else//登陆失败返回登录界面
 			return "redirect:loginJsp";
+		
 	}
 }

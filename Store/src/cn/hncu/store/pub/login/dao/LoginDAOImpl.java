@@ -4,6 +4,7 @@ import cn.hncu.container.annotation.DAO;
 import cn.hncu.container.jdbc.IConnection;
 import cn.hncu.store.domain.User;
 import cn.hncu.store.domain.mapping.UserMapping;
+import cn.hncu.store.util.Encrypt;
 
 @DAO(value="LoginDAO")
 public class LoginDAOImpl extends IConnection implements LoginDAO{
@@ -15,7 +16,17 @@ public class LoginDAOImpl extends IConnection implements LoginDAO{
 	@Override
 	public User login(User user){
 		String sql="WHERE name=? AND password=?";
-		return getMapping(UserMapping.class).getSingleUser(sql,user.getName(),user.getPassword());
+		return getMapping(UserMapping.class).getSingleUser(sql,user.getName(),Encrypt.encrypt(user.getPassword()));
+	}
+	@Override
+	public boolean del(User user) {
+		String sql="WHERE id=?";
+		return getMapping(UserMapping.class).del(sql,user.getId());
+	}
+	@Override
+	public boolean update(User user) {
+		String sql="SET password=? WHERE id=?";
+		return getMapping(UserMapping.class).del(sql,Encrypt.encrypt(user.getPassword()),user.getId());
 	}
 
 }

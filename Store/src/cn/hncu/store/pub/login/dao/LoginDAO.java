@@ -8,4 +8,8 @@ public interface LoginDAO {
 
 	User login(User user);
 
+	boolean del(User user);
+
+	boolean update(User user);
+
 }

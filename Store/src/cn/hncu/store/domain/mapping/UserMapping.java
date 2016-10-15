@@ -12,4 +12,7 @@ public interface UserMapping {
 
 	boolean register(String sql, Object ...args);
 
+	boolean del(String sql, Object ...args);
+	boolean update(String sql, Object ...args);
+
 }

@@ -47,7 +47,7 @@ public class SQLExecute {
 						statement.setObject(i+1, paramobjs[i]);
 					}
 				}
-			//System.out.println(sql);
+			System.out.println(sql);
 			//确定执行的s/u/d/i类别
 			String type=sqlxml.getExecuteType();
 			//获取返回类型
@@ -72,12 +72,14 @@ public class SQLExecute {
 							try {
 								field.set(returnObj, resultSet.getObject(field.getName()));
 							} catch (Exception e) {
+								e.printStackTrace();
 							}
 						}
 						return returnObj;
 					}
 				}
-					
+			}else{
+				return statement.executeUpdate()!=0;
 			}
 			return returnObj;
 		}

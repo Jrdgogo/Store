@@ -8,12 +8,7 @@
   </head>
   
   <body>
-    <form action="<c:url value='/container/pub/login/loginVaildate'/>" method="post">
-                  姓名:<input type="text" name="name"/><br/>
-                 密码:<input type="text" name="password"/><br/>
-       <input type="submit" value="登录"/>
-    </form>
-    <div>2222</div>
-    <div>1111</div>
+        <a href="/Store/jsp/public/login/Login.jsp">登录</a>
+        <a href="/Store/jsp/public/login/Register.jsp">注册</a>
   </body>
 </html>

@@ -3,6 +3,7 @@ package cn.hncu.container.filter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
@@ -110,7 +111,7 @@ public class ContainerFilter implements Filter {
         				OutputStream outputStream=resp.getOutputStream();
         				list.add(outputStream);
         			}
-        			else if(cls.isAssignableFrom(Writer.class)){
+        			else if(cls.isAssignableFrom(PrintWriter.class)){
         				Writer writer=resp.getWriter();
         				list.add(writer);
         			}
