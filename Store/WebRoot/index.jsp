@@ -5,10 +5,10 @@
 <html>
   <head>
      <title>主页</title>
+     
   </head>
   
   <body>
-        <a href="/Store/jsp/public/login/Login.jsp">登录</a>
-        <a href="/Store/jsp/public/login/Register.jsp">注册</a>
+        <c:import url="./jsp/public/top.jsp" charEncoding="utf-8"></c:import>
   </body>
 </html>

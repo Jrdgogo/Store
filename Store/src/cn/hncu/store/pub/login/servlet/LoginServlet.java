@@ -26,11 +26,9 @@ public class LoginServlet{
 	@URL(value="/pub/login/return")
 	public String returnJsp(HttpServletRequest request,
 			@Attribute(name="user", scopes={ScopeType.SESSION})User user){
-		if(user!=null){//登录成功返回 进入登录界面的 原来界面
-			String url=request.getHeader("Referer");
-			String path=request.getContextPath();
-			url=url.substring(url.indexOf(path)+path.length());
-			return "redirect:"+url;//重定向是jsp的地址
+		if(user!=null){//登录成功返回 主页
+			System.out.println(user);
+			return "redirect:/";//重定向是jsp的地址
 		}else//登陆失败返回登录界面
 			return "redirect:loginJsp";
 		

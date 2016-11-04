@@ -45,6 +45,7 @@ public class SQLExecute {
 					   Object[] paramobjs=(Object[])paramagrs[1];
 					for(int i=0;i<paramobjs.length;i++){
 						statement.setObject(i+1, paramobjs[i]);
+						System.out.print(paramobjs[i]+"  ");
 					}
 				}
 			System.out.println(sql);
@@ -72,7 +73,7 @@ public class SQLExecute {
 							try {
 								field.set(returnObj, resultSet.getObject(field.getName()));
 							} catch (Exception e) {
-								e.printStackTrace();
+								//不处理
 							}
 						}
 						return returnObj;
